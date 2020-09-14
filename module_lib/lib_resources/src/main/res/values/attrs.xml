@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+
+    <declare-styleable name="RoundButton">
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="bigCircleColor" format="color" />
+        <attr name="circleColor" format="color" />
+        <attr name="ringColor" format="color" />
+        <attr name="totalProgress" format="integer" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="AlbumCategoryItem">
+        <attr name="aci_icon" format="reference"/>
+        <attr name="aci_id" format="integer"/>
+        <attr name="aci_title" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="RadioCategoryItem">
+        <attr name="rci_id" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="ItemHeader">
+        <attr name="ih_title" format="string"/>
+        <attr name="ih_right_text" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="circleWidth" format="dimension" />
+        <attr name="betaAngle" format="integer" />
+        <attr name="firstColor" format="color" />
+        <attr name="secondColor" format="color" />
+    </declare-styleable>
+
+    <attr name="siArrowPosition">
+        <enum name="left" value="0" />
+        <enum name="right" value="1" />
+    </attr>
+    <attr name="siBorderType">
+        <enum name="stroke" value="0" />
+        <enum name="fill" value="1" />
+    </attr>
+    <attr name="siStrokeCap">
+        <enum name="butt" value="0" />
+        <enum name="round" value="1" />
+        <enum name="square" value="2" />
+    </attr>
+    <attr name="siStrokeJoin">
+        <enum name="bevel" value="0" />
+        <enum name="miter" value="1" />
+        <enum name="round" value="2" />
+    </attr>
+    <declare-styleable name="ShaderImageView">
+        <attr name="siSquare" format="boolean" />
+        <attr name="siBorderColor" format="color" />
+        <attr name="siBorderWidth" format="dimension" />
+        <attr name="siBorderAlpha" format="float" />
+        <attr name="siForeground" format="integer|reference" />
+        <!-- Rounded Image View -->
+        <attr name="siRadius" format="dimension" />
+        <!--BubbleImageView-->
+        <attr name="siArrowPosition"/>
+        <attr name="siTriangleHeight" format="dimension"/>
+        <!--PorterImageView-->
+        <attr name="siShape" format="integer|reference" />
+        <!--ShaderImageView-->
+        <attr name="siBorderType"/>
+        <attr name="siStrokeCap"/>
+        <attr name="siStrokeJoin"/>
+        <attr name="siStrokeMiter" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="PlayPauseView">
+        <attr name="bg_color" format="color" />
+        <attr name="btn_color" format="color" />
+        <attr name="ring_color" format="color" />
+        <attr name="gap_width" format="float" />
+        <attr name="border_width" format="float|reference" />
+        <attr name="space_padding" format="float" />
+        <attr name="anim_duration" format="integer" />
+        <attr name="anim_direction">
+            <enum name="positive" value="1" />
+            <enum name="negative" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="IconFontTextView">
+        <attr name="if_strokeWidth" format="dimension" />
+        <attr name="if_strokeColor" format="color" />
+        <attr name="if_fillColor" format="color" />
+    </declare-styleable>
+
+
+    <!-- 进度条 -->
+    <declare-styleable name="ProgressView">
+        <attr name="progressIndeterminate" format="boolean" />
+        <attr name="barColor" format="color" />
+        <attr name="rimColor" format="color" />
+        <attr name="rimWidth" format="dimension" />
+        <attr name="spinSpeed" format="float" />
+        <attr name="barSpinCycleTime" format="integer" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="fillRadius" format="boolean" />
+        <attr name="barWidth" format="dimension" />
+        <attr name="linearProgress" format="boolean" />
+    </declare-styleable>
+
+
+    <!-- 仿 ios 开关按钮 -->
+    <declare-styleable name="SwitchButton">
+        <!-- 是否选中 -->
+        <attr name="android:checked" />
+        <!-- 是否禁用 -->
+        <attr name="android:enabled" />
+    </declare-styleable>
+
+    <!-- 正则表达式编辑框 -->
+    <declare-styleable name="RegexEditText">
+        <!-- 正则输入限制 -->
+        <attr name="inputRegex" format="string" />
+        <!-- 常用正则类型 -->
+        <attr name="regexType" >
+            <!-- 手机号（只能以 1 开头） -->
+            <enum name="mobile" value="0x01" />
+            <!-- 中文（普通的中文字符） -->
+            <enum name="chinese" value="0x02" />
+            <!-- 英文（大写和小写的英文） -->
+            <enum name="english" value="0x03" />
+            <!-- 整数（非 0 开头的数字） -->
+            <enum name="count" value="0x04" />
+            <!-- 用户名（中文、英文、数字） -->
+            <enum name="name" value="0x05" />
+            <!-- 非空格字符 -->
+            <enum name="nonnull" value="0x06" />
+        </attr>
+    </declare-styleable>
+
+    <!-- 设置栏 -->
+    <declare-styleable name="SettingBar">
+        <!-- 左边 -->
+        <attr name="bar_leftText" format="string"/>
+        <attr name="bar_leftHint" format="string"/>
+        <attr name="bar_leftIcon" format="reference" />
+        <attr name="bar_leftColor" format="color" />
+        <attr name="bar_leftSize" format="dimension" />
+        <!-- 右边 -->
+        <attr name="bar_rightText" format="string" />
+        <attr name="bar_rightHint" format="string"/>
+        <attr name="bar_rightIcon" format="reference" />
+        <attr name="bar_rightColor" format="color" />
+        <attr name="bar_rightSize" format="dimension" />
+        <!-- 分割线 -->
+        <attr name="bar_lineVisible" format="boolean" />
+        <attr name="bar_lineColor" format="reference|color" />
+        <attr name="bar_lineSize" format="dimension" />
+        <attr name="bar_lineMargin" format="dimension" />
+    </declare-styleable>
+
+    <!-- 自定义 ViewStub -->
+    <declare-styleable name="CustomViewStub">
+        <!-- 布局 id -->
+        <attr name="android:layout" />
+    </declare-styleable>
+
+    <!-- 缩放的 ImageView -->
+    <declare-styleable name="ScaleImageView">
+        <!-- 缩放比例 -->
+        <attr name="scaleRatio" format="float" />
+    </declare-styleable>
+
+    <!-- 按照比例显示的 FrameLayout -->
+    <declare-styleable name="RatioFrameLayout">
+        <!-- 宽高比例 -->
+        <attr name="sizeRatio" format="float" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:foregroundGravity="center"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:foregroundGravity="center" />
+
+        <ImageView
+            android:id="@+id/btnVideo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dk_btn_play_style"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/bg_loadmore_progress_res"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_back_black" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.salton123.soulove.app">
+
+    <application
+        android:label="${app_name}"
+        android:largeHeap="true"
+        android:theme="@style/EmuiAppTheme"
+        android:icon="${app_icon}"
+        tools:replace="android:theme,android:label,android:icon">
+        <activity
+            android:name="com.salton123.soulove.splash.SplashActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/EmuiAppThemeSplash"
+            tools:targetApi="n">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

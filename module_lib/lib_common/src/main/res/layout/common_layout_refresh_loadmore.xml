@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:srlEnableLoadMoreWhenContentNotFull="false"
+    app:srlEnableNestedScrolling="true"
+    app:srlFooterTriggerRate="0"
+    app:srlHeaderMaxDragRate="2.0">
+
+    <com.salton123.soulove.common.widget.TRefreshHeader
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="never" />
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

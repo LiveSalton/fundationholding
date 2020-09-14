@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        flavorDimensions versionName
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //必须要保证所有的flavor 都属于同一个维度
+    flavorDimensions "default"
+    println("projectName:" + project.getName())
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.okhttp3:okhttp:3.14.4'
+    compileOnly 'com.squareup.okio:okio:1.17.4'
+    // Android P禁用hide api，这个库可以支持hide api的反射访问
+    implementation 'me.weishu:free_reflection:2.2.0'
+    implementation 'me.weishu:epic:1.0.0'
+    implementation 'com.github.yyued:SVGAPlayer-Android:2.5.3'
+    implementation 'fairy.easy:mobilehardware:2.4.1'
+    implementation 'fairy.easy:httpmodel:1.0.2'
+    implementation 'com.github.princekin-f:EasyFloat:1.3.3'
+    implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
+    implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    api project(':saltonFramework')
+}
+
+//提交到远程仓库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://repo.rdc.aliyun.com/repository/43441-release-5ZHLZs/") {
+                authentication(userName: "6XCT1E", password: "XldVM4G6IO")
+            }
+            pom.groupId = rootProject.ext.qa.group_name
+            pom.artifactId = 'qa'
+            pom.version = rootProject.ext.qa.version
+        }
+        task sourcesJar(type: Jar) {
+            classifier = 'sources'
+            from android.sourceSets.main.java.source
+        }
+
+        artifacts {
+            archives sourcesJar
+        }
+    }
+}

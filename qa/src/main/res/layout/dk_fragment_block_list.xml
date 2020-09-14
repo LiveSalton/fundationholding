@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dk_color_FFFFFF"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/block_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/tx_block_detail"
+            style="@style/DK.TextSmall.Dark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|left"
+            android:clickable="true"
+            android:gravity="left"
+            android:textSize="@dimen/dk_font_size_14"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        manifestPlaceholders = rootProject.ext.manifestPlaceholders
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.aar'], dir: 'libs')
+    api rootProject.ext.supportLibs
+    api rootProject.ext.otherDependenciesLibs
+    kapt rootProject.ext.compilerDependenciesLibs
+    api project(':lib_resources')
+    api project(':saltonFramework')
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}

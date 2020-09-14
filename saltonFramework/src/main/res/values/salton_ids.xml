@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="salton_id_top_layout" type="id" />
+    <item name="salton_id_title_layout" type="id" />
+    <item name="salton_id_content_layout" type="id" />
+    <item name="salton_id_title_status_bar" type="id" />
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.salton123.soulove.common">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- 喜马拉雅配置 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 喜马拉雅配置END -->
+
+    <application
+        android:name="com.salton123.soulove.XApp"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true"
+        android:icon="@drawable/ic_launcher"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="n">
+        <!-- 喜马拉雅配置 -->
+        <meta-data
+            android:name="app_key"
+            android:value="aeebdaf70f4efad44a8bc5f6c7847f11" />
+        <meta-data
+            android:name="pack_id"
+            android:value="${applicationId}" />
+        <activity
+            android:name="com.ximalaya.ting.android.opensdk.auth.component.XmlyBrowserComponent"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <service
+            android:name="com.ximalaya.ting.android.opensdk.player.service.XmPlayerService"
+            android:exported="true"
+            android:process=":player" />
+
+        <receiver
+            android:name="com.ximalaya.ting.android.opensdk.player.receive.PlayerReceiver"
+            android:exported="true"
+            android:process=":player">
+            <intent-filter>
+                <action android:name="com.ximalaya.ting.android.ACTION_CONTROL_START_PAUSE" />
+                <action android:name="com.ximalaya.ting.android.ACTION_CONTROL_PLAY_PRE" />
+                <action android:name="com.ximalaya.ting.android.ACTION_CONTROL_PLAY_NEXT" />
+                <action android:name="com.ximalaya.ting.android.ACTION_CLOSE" />
+                <action android:name="com.ximalaya.ting.android.ACTION_CONTROL_RELEASE_SERVICE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.ximalaya.ting.android.opensdk.player.receive.WireControlReceiver"
+            android:exported="true"
+            android:process=":player" />
+        <!-- 喜马拉雅听END -->
+    </application>
+
+</manifest>

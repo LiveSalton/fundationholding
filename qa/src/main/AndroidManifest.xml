@@ -1,0 +1,116 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhenai.qa">
+
+    <!-- Window -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- IO -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Setting -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <!-- Zxing-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.salton123.qa.kit.ToolKitsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name="com.salton123.qa.ui.UniversalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name="com.salton123.qa.ui.TranslucentActivity"
+            android:theme="@style/DK.Theme.Translucent"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name="com.salton123.qa.ui.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <provider
+            android:name="com.salton123.qa.DebugFileProvider"
+            android:authorities="${applicationId}.debugfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/debug_provider_paths" />
+        </provider>
+
+        <activity
+            android:name="com.mobile.mobileinfo.SystemInfoAcitivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name="com.salton123.qa.kit.fileexplorer.TextViewerActivity"
+            android:launchMode="singleTask"
+            android:process=":leakcanary"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name="com.salton123.qa.ui.fileexplorer.FileExploreActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <activity
+            android:name="com.salton123.qa.kit.fileexplorer.ImageDetailActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <activity
+            android:name="com.salton123.qa.kit.fileexplorer.DatabaseDetailActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <activity
+            android:name="com.salton123.qa.ui.mediapreview.PreviewActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <activity
+            android:name="com.salton123.qa.kit.fileexplorer.SharedPreferencesViewerActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+    </application>
+</manifest>

@@ -1,0 +1,101 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "org.jetbrains.dokka"
+
+android {
+    compileSdkVersion "${rootProject.ext.android.compileSdkVersion}" as Integer
+    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}"
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.android.targetSdkVersion as Integer
+        versionName rootProject.ext.android.versionName
+        versionCode rootProject.ext.android.versionCode as Integer
+        resConfigs "xxhdpi"
+        resConfigs "zh" as String
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    resourcePrefix "salton_"
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+//    debugImplementation rootProject.ext.debugDependencies["qa"]
+//    releaseImplementation rootProject.ext.debugDependencies["qa-no-op"]
+    api rootProject.ext.supportLibs
+    api rootProject.ext.otherDependenciesLibs
+    kapt rootProject.ext.compilerDependencies["lifecycle-compiler"]
+    kapt rootProject.ext.compilerDependencies["glide-compiler"]
+    kapt rootProject.ext.compilerDependencies["arouter-compiler"]
+//    api 'com.hjq:titlebar:6.0'
+}
+
+
+//提交到远程仓库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://repo.rdc.aliyun.com/repository/43441-release-5ZHLZs/") {
+                authentication(userName: "6XCT1E", password: "XldVM4G6IO")
+            }
+            pom.groupId = "com.salton123"
+            pom.artifactId = "saltonFramework"
+            pom.version = "1.3.0.20"
+        }
+    }
+}
+
+//库 Module 的 build.gradle
+task generateSourcesJar(type: Jar) {
+    group = 'jar'
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = "javadoc"
+    outputDirectory = javadoc.destinationDir
+}
+
+task generateJavadoc(type: Jar, dependsOn: dokkaJavadoc) {
+    group = 'jar'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    //在频繁打包交付测试时，可暂时注释掉文档打包，提高打包效率
+//    archives generateJavadoc
+    archives generateSourcesJar
+}

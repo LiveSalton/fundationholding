@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    tools:background="@color/color_default_ff728ac6">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="6.0dip"
+        android:layout_marginBottom="6.0dip"
+        android:layout_weight="1.0"
+        android:background="@drawable/bg_search_title_holding_area"
+        android:gravity="center_vertical"
+        android:visibility="visible">
+
+        <com.salton123.widget.IconFontTextView
+            android:layout_width="20.0dip"
+            android:layout_height="20.0dip"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/bg_round_shape"
+            android:gravity="center"
+            android:text="@string/if_jingyu"
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etInput"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/hint_search_fund_stocks"
+            android:imeOptions="actionGo|actionSend"
+            android:inputType="textNoSuggestions"
+            android:paddingStart="8.0dip"
+            android:paddingEnd="8.0dip"
+            android:singleLine="true"
+            android:textColor="@color/color_ccffffff"
+            android:textColorHint="@color/color_ccffffff"
+            android:textCursorDrawable="@drawable/aj"
+            android:textSize="12.0sp" />
+    </LinearLayout>
+
+    <com.salton123.widget.IconFontTextView
+        android:id="@+id/tvTitleSearch"
+        android:layout_width="26.0dip"
+        android:layout_height="26.0dip"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/if_search"
+        android:textColor="@color/white"
+        android:textSize="18.0sp" />
+</LinearLayout>

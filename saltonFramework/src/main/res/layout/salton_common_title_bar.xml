@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuhenzhizao.titlebar.widget.CommonTitleBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/commonTitleBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:centerText=""
+    app:centerType="textView"
+    app:leftDrawable="@drawable/comm_titlebar_back_normal"
+    app:leftDrawablePadding="0dp"
+    app:leftText="@string/back"
+    app:leftTextSize="14sp"
+    app:leftType="textView"
+    app:rightText=""
+    app:rightTextSize="14sp"
+    app:rightType="textView"
+    app:showBottomLine="false" />

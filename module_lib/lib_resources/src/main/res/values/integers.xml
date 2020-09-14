@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+    <integer name="activity_anim_duration">200</integer>
+    <integer name="anim_duration_medium">300</integer>
+    <integer name="anim_duration_long">400</integer>
+    <integer name="sms_code_length">4</integer>
+</resources>

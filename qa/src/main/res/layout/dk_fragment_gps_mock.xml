@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dk_color_FFFFFF">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.salton123.qa.ui.widget.webview.MyWebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/recyclerView" />
+
+    <RelativeLayout
+        android:id="@+id/mock_location_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/dk_color_7FFFFFFF"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/mock_location"
+            style="@style/DK.ConfirmButton.Positive"
+            android:layout_width="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:enabled="false"
+            android:text="@string/dk_gpsmock_tv_location" />
+
+        <EditText
+            android:id="@+id/longitude"
+            style="@style/DK.Input"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/mock_location"
+            android:hint="@string/dk_gpsmock_hint_longitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:maxLength="6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@id/longitude"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/mock_location"
+            android:background="@color/dk_color_E5E5E5" />
+
+        <EditText
+            android:id="@+id/latitude"
+            style="@style/DK.Input"
+            android:layout_below="@id/longitude"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/mock_location"
+            android:hint="@string/dk_gpsmock_hint_latitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:maxLength="6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@id/latitude"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/mock_location"
+            android:background="@color/dk_color_E5E5E5" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

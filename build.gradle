@@ -1,0 +1,82 @@
+apply from: "config.gradle"
+buildscript {
+    ext.kotlin_version = '1.3.50'
+
+    apply from: "config.gradle"
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+        maven {
+            url  "http://dl.bintray.com/piasy/maven"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath "com.tencent.bugly:tinker-support:1.1.5"
+        classpath 'org.aspectj:aspectjtools:1.9.5'
+        classpath 'org.aspectj:aspectjweaver:1.8.9'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.0"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenLocal()
+        maven { url 'https://jitpack.io' }//添加jitpack仓库地址
+        maven {
+            credentials {
+                username '6XCT1E'
+                password 'XldVM4G6IO'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/43441-release-5ZHLZs/'
+        }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+        maven {
+            url  "http://dl.bintray.com/piasy/maven"
+        }
+    }
+
+    configurations.all {
+//        transitive = false
+        resolutionStrategy {
+//            force "org.jetbrains.kotlin:kotlin-stdlib:1.3.50"
+//            force "androidx.lifecycle:lifecycle-runtime:2.0.0"
+//            force "androidx.appcompat:appcompat:1.0.0"
+//            force "androidx.recyclerview:recyclerview:1.0.0"
+//            force "androidx.constraintlayout:constraintlayout:1.1.3"
+//            force "androidx.appcompat:appcompat:1.0.0"
+//            force "androidx.recyclerview:recyclerview:1.0.0"
+//            force "androidx.recyclerview:recyclerview:1.0.0"
+//            force "com.google.android.material:material:1.0.0"
+//            force "androidx.vectordrawable:vectordrawable:1.0.0"
+//            force "androidx.arch.core:core-runtime:2.0.1"
+//            force "androidx.arch.core:core-common:2.0.1"
+//            force "androidx.lifecycle:lifecycle-common:2.0.0"
+//            force "androidx.lifecycle:lifecycle-viewmodel:2.0.0"
+//            force "androidx.lifecycle:lifecycle-process:2.0.0"
+//            force "androidx.lifecycle:lifecycle-service:2.0.0"
+//            force "androidx.lifecycle:lifecycle-runtime:2.0.0"
+//            force "androidx.lifecycle:lifecycle-common:2.0.0"
+            force rootProject.ext.supportLibs
+            force rootProject.ext.otherDependenciesLibs
+        }
+//        all*.exclude group: 'androidx.databinding'
+//        all*.exclude group: 'androidx.documentfile'
+//        all*.exclude group: 'androidx.localbroadcastmanager'
+//        all*.exclude group: 'androidx.slidingpanelayout'
+//        all*.exclude group: 'androidx.room'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

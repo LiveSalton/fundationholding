@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+    <string name="if_search" tools:ignore="true">&#xe61f;</string>
+    <string name="if_jingyu">&#xe6a7;</string>
+    <string name="if_more">&#xe686;</string>
+    <string name="if_home">&#xe603;</string>
+    <string name="if_retangel">&#xe648;</string>
+    <string name="if_right_arrow">&#xe642;</string>
+    <string name="if_menu">&#xe630;</string>
+    <string name="if_left_arrow">&#xe628;</string>
+    <string name="if_user">&#xe601;</string>
+    <string name="if_qrcode">&#xe60d;</string>
+    <string name="if_more_fill">&#xe7ac;</string>
+    <string name="if_app_market">&#xe605;</string>
+    <string name="if_history">&#xe68d;</string>
+    <string name="if_delete">&#xe616;</string>
+    <string name="if_all">&#xe60b;</string>
+    <string name="found_more">&#xe61f; 搜索发现优秀童声</string>
+
+</resources>

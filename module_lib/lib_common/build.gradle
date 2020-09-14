@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        //阿里路由框架配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        buildConfigField "String", "ADJUST_APP_TOKEN", "\"${rootProject.ext.dependVersion.adjustAppToken}\""
+        buildConfigField "boolean", "APP_DEVELOP", "${rootProject.ext.dependVersion.appDevelop}"
+        buildConfigField "boolean", "SHOW_GAME_ASSTANCE", "${rootProject.ext.dependVersion.showGameAsstance}"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':lib_third')
+    api "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.versions.kotlinVersion}"
+    kapt rootProject.ext.compilerDependenciesLibs
+    testApi 'junit:junit:4.12'
+    androidTestApi 'com.android.support.test:runner:1.0.2'
+    androidTestApi 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}

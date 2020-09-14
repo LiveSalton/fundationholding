@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <declare-styleable name="salton_TintButton">
+        <attr name="salton_imgTint" format="reference|color" />
+        <attr name="salton_imgPressedAlpha" format="reference|float" />
+        <attr name="salton_bgTint" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="salton_CircleImageView">
+        <attr name="salton_border_width" format="dimension" />
+        <attr name="salton_border_color" format="color" />
+        <attr name="salton_border_overlay" format="boolean" />
+        <attr name="salton_circle_background_color" format="color" />
+    </declare-styleable>
+</resources>

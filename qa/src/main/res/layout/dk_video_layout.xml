@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="290dp">
+
+    <com.salton123.qa.ui.widget.videoview.CustomVideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="240dp" />
+
+    <include layout="@layout/dk_volume_hint_layout" />
+
+    <include layout="@layout/dk_light_hint_layout" />
+
+    <LinearLayout
+        android:id="@+id/lly_controller"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/seekbar_progress"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginRight="-20dp"
+            android:indeterminate="false"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:progressDrawable="@drawable/dk_seekbar_style"
+            android:thumb="@null" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#101010"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_controller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/dk_btn_play_style" />
+
+            <TextView
+                android:id="@+id/tv_currentProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:text="00:00:00"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / "
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_totalProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/dk_ic_volume"
+                    android:visibility="gone" />
+
+                <SeekBar
+                    android:id="@+id/seekbar_volume"
+                    android:layout_width="120dp"
+                    android:layout_height="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="-20dp"
+                    android:layout_marginRight="-20dp"
+                    android:layout_toRightOf="@id/iv_volume"
+                    android:progressDrawable="@drawable/dk_seekbar_style"
+                    android:thumb="@null"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/btn_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/dk_ic_screen"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/ivPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:foregroundGravity="center" />
+
+    <ImageView
+        android:id="@+id/tv_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_back_black" />
+</RelativeLayout>

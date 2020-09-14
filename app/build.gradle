@@ -1,0 +1,138 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def gitHash = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def buildTime = new Date().format("yyyy-MM-dd' 'HH:mm:ss")
+println("gitHash:" + gitHash + ",buildTime:" + buildTime)
+android {
+
+    compileSdkVersion "${rootProject.ext.android.compileSdkVersion}" as Integer
+    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}"
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.android.targetSdkVersion as Integer
+        applicationId rootProject.ext.android.applicationId
+        versionName rootProject.ext.android.versionName
+        versionCode rootProject.ext.android.versionCode as Integer
+        flavorDimensions versionName
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+//            "arm64-v8a"
+//            "armeabi-v7a" , "x86" ,
+        }
+        buildConfigField "String", "GIT_HASH", "\"${gitHash}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+        manifestPlaceholders = rootProject.ext.manifestPlaceholders
+    }
+
+    signingConfigs {
+        release {
+            keyAlias "${rootProject.ext.keystore.keyAlias}"
+            keyPassword "${rootProject.ext.keystore.keyPassword}"
+            storeFile file("${rootProject.ext.keystore.storeFile}")
+            storePassword "${rootProject.ext.keystore.storePassword}"
+            println("release storeFile:" + file("${rootProject.ext.keystore.storeFile}").getAbsolutePath())
+            // 使用旧版签名，禁用V2版签名模式
+            v2SigningEnabled false
+        }
+    }
+
+    buildTypes {
+        debug {
+            if ("${rootProject.ext.dependVersion.appDevelop}" == "true") {
+                versionNameSuffix '00'
+                minifyEnabled false
+                signingConfig signingConfigs.release
+                //为已经存在的applicationId添加后缀
+                applicationIdSuffix ".debug"
+                // 为版本名添加后缀
+                versionNameSuffix "-debug"
+            } else {
+                signingConfig signingConfigs.release
+//                minifyEnabled true
+//                shrinkResources true
+//                zipAlignEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+        release {
+            signingConfig signingConfigs.release
+//            minifyEnabled true
+//            shrinkResources true
+//            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFileName.endsWith('.apk')) {
+                // Rename APK
+                def applicationId = defaultConfig.applicationId
+                def versionCode = defaultConfig.versionCode
+                def versionName = defaultConfig.versionName
+                output.outputFileName = "${applicationId}_v${versionName}_${versionCode}_${rootProject.ext.android.channel}.apk"
+            }
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+
+//    productFlavors{
+//        def bizType = rootProject.ext.dependVersion.bizType
+//        biz_xmly{
+//            manifestPlaceholders = [CHANNEL_VALUE: "baidu"
+//                                    ,app_icon   : "@mipmap/logo_baidu"]
+//        }
+//        def appName = ""
+//        def appIcon = 0
+//        if (bizType == "biz_xmly") {
+//            appName = "大象印画"
+//            appIcon = R.drawable.
+//        }
+//        println(bizType + ":" + appName)
+//    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.aar'], dir: 'libs')
+    api project(':lib_common')
+//    implementation project(':biz_xmly')
+//    implementation project(':biz_bmob')
+    implementation project(':biz_demo')
+//    implementation project(':biz_voice')
+//    implementation project(':biz_record')
+    api rootProject.ext.supportLibs
+    api rootProject.ext.otherDependenciesLibs
+    kapt rootProject.ext.compilerDependenciesLibs
+//    debugApi project(':qa')
+    debugApi project(':qa')
+    releaseApi project(':qa-no-op')
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}

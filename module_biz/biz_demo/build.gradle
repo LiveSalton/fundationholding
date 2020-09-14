@@ -1,0 +1,13 @@
+apply from: "../../common.gradle"
+android {
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId rootProject.ext.android.applicationId
+        }
+        manifestPlaceholders = rootProject.ext.manifestPlaceholders
+        buildConfigField "String", "PROCESS_NAME", "\"${rootProject.ext.projection.processName}\""
+    }
+}
+dependencies {
+    implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+}

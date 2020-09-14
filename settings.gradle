@@ -1,0 +1,12 @@
+include ':app', ':lib_common',  ':lib_third',  ':biz_bmob', ':biz_demo',
+        ':biz_voice', ':biz_record', ':biz_xmly', ':lib_resources', ':lib_api', ':saltonFramework', ':qa', ':qa-no-op'
+
+project(":lib_common").projectDir = new File("module_lib/lib_common")
+project(":lib_third").projectDir = new File("module_lib/lib_third")
+project(":lib_api").projectDir = new File("module_lib/lib_api")
+project(":lib_resources").projectDir = new File("module_lib/lib_resources")
+//project(":biz_bmob").projectDir = new File("module_biz/biz_bmob")
+project(":biz_demo").projectDir = new File("module_biz/biz_demo")
+//project(":biz_voice").projectDir = new File("module_biz/biz_voice")
+//project(":biz_record").projectDir = new File("module_biz/biz_record")
+//project(":biz_xmly").projectDir = new File("module_biz/biz_xmly")

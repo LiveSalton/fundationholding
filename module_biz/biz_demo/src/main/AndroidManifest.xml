@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.salton123.soulove.lib_demo">
+    <application android:allowAudioPlaybackCapture="true">
+        <activity
+            android:name="com.salton123.lib_demo.FundationPage"
+            android:configChanges="screenLayout|orientation|screenSize" />
+    </application>
+</manifest>
