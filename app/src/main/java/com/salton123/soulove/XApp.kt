@@ -6,7 +6,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.hjq.toast.ToastUtils
 import com.salton123.api.IApplicationProvider
 import com.salton123.app.BaseApplication
-import com.salton123.fundation.FundAppDatabase
 import com.salton123.qa.QualityAssistant.install
 import com.salton123.qa.QualityContext
 import com.salton123.soulove.common.AppHelper

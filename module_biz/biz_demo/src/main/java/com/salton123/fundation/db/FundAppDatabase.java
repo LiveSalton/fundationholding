@@ -1,4 +1,4 @@
-package com.salton123.fundation;
+package com.salton123.fundation.db;
 
 /**
  * User: newSalton@outlook.com
@@ -10,9 +10,9 @@ package com.salton123.fundation;
 import android.content.Context;
 
 import com.salton123.app.BaseApplication;
-import com.salton123.fundation.chicang.FundStock;
-import com.salton123.fundation.daima.DaiMaData;
-import com.salton123.fundation.dao.FundDao;
+import com.salton123.fundation.poller.chicang.FundStock;
+import com.salton123.fundation.poller.daima.DaiMaData;
+import com.salton123.fundation.db.dao.FundDao;
 
 import androidx.room.Database;
 import androidx.room.Room;

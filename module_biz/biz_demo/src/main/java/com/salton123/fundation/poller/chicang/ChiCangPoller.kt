@@ -1,18 +1,16 @@
-package com.salton123.fundation.chicang
+package com.salton123.fundation.poller.chicang
 
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import com.google.gson.Gson
-import com.salton123.fundation.FundAppDatabase
-import com.salton123.fundation.Poller
+import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.poller.Poller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
-import com.salton123.utils.RxUtilCompat
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
-import io.reactivex.functions.Consumer
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient

@@ -1,8 +1,8 @@
-package com.salton123.fundation.dao;
+package com.salton123.fundation.db.dao;
 
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo;
-import com.salton123.fundation.chicang.FundStock;
-import com.salton123.fundation.daima.DaiMaData;
+import com.salton123.fundation.poller.chicang.FundStock;
+import com.salton123.fundation.poller.daima.DaiMaData;
 
 import java.util.List;
 
@@ -38,9 +38,6 @@ public interface FundDao {
     @Query("SELECT FCODE,SHORTNAME,GPJC,GPDM FROM DaiMaData JOIN FundStock ON FCODE = CODE WHERE GPJC = :stocksKeyWord or GPDM = :stocksKeyWord")
     Observable<List<CodeStocksInnerJoinInfo>> searchFundHoldingStocks(String stocksKeyWord);
 
-    //查询哪些基金持有中兴通讯
-    // SELECT DaiMaData.FCODE,DaiMaData.SHORTNAME,FundStock.GPJC FROM com.salton123.fundation.daima.DaiMaData JOIN FundStock ON  DaiMaData.FCODE = FundStock.CODE WHERE FundStock.GPJC = "中兴通讯"
-
-    // @Query("DELETE FROM User")
-    // void deleteAll();
+    @Query("SELECT * FROM FundStock where CODE = :keyword")
+    Observable<List<FundStock>> searchFundHoldings(String keyword);
 }

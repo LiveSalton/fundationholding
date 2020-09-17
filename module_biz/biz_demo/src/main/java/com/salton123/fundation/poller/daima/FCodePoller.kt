@@ -1,8 +1,8 @@
-package com.salton123.fundation.daima
+package com.salton123.fundation.poller.daima
 
 import com.google.gson.Gson
-import com.salton123.fundation.FundAppDatabase
-import com.salton123.fundation.QueuePoller
+import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.poller.QueuePoller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
 import io.reactivex.Observable

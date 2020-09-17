@@ -1,6 +1,6 @@
 // package com.salton123.fundation.dao;
 //
-// import com.salton123.fundation.daima.DaiMaData;
+// import com.salton123.fundation.poller.daima.DaiMaData;
 //
 // import java.util.List;
 //

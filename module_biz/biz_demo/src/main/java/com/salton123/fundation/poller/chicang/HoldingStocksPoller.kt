@@ -1,9 +1,9 @@
-package com.salton123.fundation.chicang
+package com.salton123.fundation.poller.chicang
 
 import android.annotation.SuppressLint
 import com.google.gson.Gson
-import com.salton123.fundation.FundAppDatabase
-import com.salton123.fundation.QueuePoller
+import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.poller.QueuePoller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
 import io.reactivex.Observable

@@ -2,7 +2,10 @@
     package="com.salton123.soulove.lib_demo">
     <application android:allowAudioPlaybackCapture="true">
         <activity
-            android:name="com.salton123.lib_demo.FundationPage"
+            android:name="com.salton123.fundation.FundationPage"
+            android:configChanges="screenLayout|orientation|screenSize" />
+        <activity
+            android:name="com.salton123.fundation.HoldingPage"
             android:configChanges="screenLayout|orientation|screenSize" />
     </application>
 </manifest>

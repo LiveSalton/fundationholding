@@ -1,4 +1,4 @@
-package com.salton123.fundation.chicang
+package com.salton123.fundation.poller.chicang
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

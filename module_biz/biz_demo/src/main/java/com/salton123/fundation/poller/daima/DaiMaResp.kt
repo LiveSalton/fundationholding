@@ -1,4 +1,4 @@
-package com.salton123.fundation.daima
+package com.salton123.fundation.poller.daima
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

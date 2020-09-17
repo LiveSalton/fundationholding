@@ -3,11 +3,11 @@ package com.salton123.fundation.mvvm
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.salton123.fundation.FundAppDatabase
+import com.salton123.fundation.db.FundAppDatabase
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo
+import com.salton123.fundation.poller.chicang.FundStock
 import com.salton123.log.XLog
 import com.salton123.util.RxUtils
-import com.salton123.utils.RxUtilCompat
 
 /**
  * User: wujinsheng1@yy.com
@@ -22,6 +22,7 @@ class FundationViewModel : ViewModel() {
     }
 
     val mCodeStacksRet: MutableLiveData<MutableList<CodeStocksInnerJoinInfo>> = MutableLiveData()
+    val mFundStocksRet: MutableLiveData<MutableList<FundStock>> = MutableLiveData()
 
     fun searchFundHoldingStocks(stocksKeyWord: String) {
         FundAppDatabase.getInstance().fundDao()
@@ -29,6 +30,17 @@ class FundationViewModel : ViewModel() {
                 .compose(RxUtils.schedulersTransformer())
                 .subscribe({
                     mCodeStacksRet.value = it
+                }, {
+                    XLog.e(TAG, it.toString())
+                })
+    }
+
+    fun searchFundHoldings(keyword:String){
+        FundAppDatabase.getInstance().fundDao()
+                .searchFundHoldings(keyword)
+                .compose(RxUtils.schedulersTransformer())
+                .subscribe({
+                    mFundStocksRet.value = it
                 }, {
                     XLog.e(TAG, it.toString())
                 })

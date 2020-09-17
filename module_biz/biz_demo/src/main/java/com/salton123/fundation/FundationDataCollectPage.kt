@@ -1,9 +1,9 @@
-package com.salton123.lib_demo
+package com.salton123.fundation
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.salton123.fundation.FundAppDatabase
-import com.salton123.fundation.chicang.HoldingStocksPoller
-import com.salton123.fundation.daima.FCodePoller
+import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.poller.chicang.HoldingStocksPoller
+import com.salton123.fundation.poller.daima.FCodePoller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.Constants
 import com.salton123.soulove.common.net.RxAdapter
