@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.salton123.fundation.db.FundAppDatabase
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo
+import com.salton123.fundation.bean.SearchHistoryInfo
 import com.salton123.fundation.poller.chicang.FundStock
 import com.salton123.log.XLog
 import com.salton123.util.RxUtils
+import com.salton123.utils.RxUtilCompat
 
 /**
  * User: wujinsheng1@yy.com
@@ -23,8 +25,10 @@ class FundationViewModel : ViewModel() {
 
     val mCodeStacksRet: MutableLiveData<MutableList<CodeStocksInnerJoinInfo>> = MutableLiveData()
     val mFundStocksRet: MutableLiveData<MutableList<FundStock>> = MutableLiveData()
+    val mSearchHistoryRet: MutableLiveData<MutableList<SearchHistoryInfo>> = MutableLiveData()
 
     fun searchFundHoldingStocks(stocksKeyWord: String) {
+        insertSearchHistory(stocksKeyWord)
         FundAppDatabase.getInstance().fundDao()
                 .searchFundHoldingStocks(stocksKeyWord)
                 .compose(RxUtils.schedulersTransformer())
@@ -35,12 +39,34 @@ class FundationViewModel : ViewModel() {
                 })
     }
 
-    fun searchFundHoldings(keyword:String){
+    fun searchFundHoldings(keyword: String) {
         FundAppDatabase.getInstance().fundDao()
                 .searchFundHoldings(keyword)
                 .compose(RxUtils.schedulersTransformer())
                 .subscribe({
                     mFundStocksRet.value = it
+                }, {
+                    XLog.e(TAG, it.toString())
+                })
+    }
+
+    fun searchSearchHistories(limit: Int) {
+        FundAppDatabase.getInstance().fundDao()
+                .searchSearchHistoryInfos(limit)
+                .compose(RxUtils.schedulersTransformer())
+                .subscribe({
+                    mSearchHistoryRet.value = it
+                }, {
+                    XLog.e(TAG, it.toString())
+                })
+    }
+
+    private fun insertSearchHistory(keyword: String) {
+        FundAppDatabase.getInstance().fundDao()
+                .insertSearchHistory(SearchHistoryInfo(keyword,System.currentTimeMillis()))
+                .compose(RxUtilCompat.schedulersMybeIO())
+                .subscribe({
+                    XLog.e(TAG, "insertSearchHistory saved")
                 }, {
                     XLog.e(TAG, it.toString())
                 })

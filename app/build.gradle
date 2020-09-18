@@ -128,7 +128,7 @@ dependencies {
     api rootProject.ext.otherDependenciesLibs
     kapt rootProject.ext.compilerDependenciesLibs
 //    debugApi project(':qa')
-    debugApi project(':qa')
+    debugApi project(':qa-no-op')
     releaseApi project(':qa-no-op')
 }
 kapt {

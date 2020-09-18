@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bin.david.form.core.TableConfig
 import com.bin.david.form.data.CellInfo
-import com.bin.david.form.data.format.bg.BaseBackgroundFormat
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat
 import com.bin.david.form.data.format.draw.FastTextDrawFormat
 import com.bin.david.form.data.style.FontStyle
@@ -54,8 +53,13 @@ class FundationPage : BaseActivity() {
             FundAppDatabase.init(this)
         }
         FontStyle.setDefaultTextSize(DensityUtils.sp2px(this, 15f)); //设置全局字体大小
-        etInput.setText("中兴通讯")
-        startSearch()
+        mFundViewModel.searchSearchHistories(10)
+        mFundViewModel.mSearchHistoryRet.observe(this, Observer { item ->
+            mTagGroup.setTags(item.map { it.keyword })
+        })
+        mTagGroup.setOnTagClickListener {
+            etInput.setText(it)
+        }
     }
 
     private fun copyDatabase() {

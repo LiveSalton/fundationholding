@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include layout="@layout/default_search_title" />
+
+    <me.gujun.android.taggroup.TagGroup
+        android:id="@+id/mTagGroup"
+        style="@style/TagGroup" />
 
     <com.bin.david.form.core.SmartTable
         android:id="@+id/smartTable"

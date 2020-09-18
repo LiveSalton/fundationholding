@@ -10,4 +10,5 @@ android {
 }
 dependencies {
     implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+    implementation 'me.gujun.android.taggroup:library:1.4'
 }
