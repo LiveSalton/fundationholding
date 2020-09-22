@@ -14,10 +14,10 @@ class HoldingStocksTask:
     def start(self):
         print("start holding stocks task")
 
-    # 查询某一个基金的持仓
-    def queryOneFund(self, fcode):
+    # 查询基金排名
+    def queryFundRank(self, index):
         print("query one fund")
-        reqUrl = fCodeUrl.replace("10086", fcode)
+        reqUrl = fCodeUrl.replace("10086", index)
         print(reqUrl)
         req = urllib2.urlopen(reqUrl)
         resp = json.loads(req.read().decode("utf-8"))
@@ -82,10 +82,21 @@ class HoldingStocksTask:
                 # DTCOUNT_Y = data["DTCOUNT_Y"]
                 # ORGSALESRANK = data["ORGSALESRANK"]
                 # ISABNORMAL = data["ISABNORMAL"]
-                # saveToDb(item)
+                # self.saveToDb(item)
                 print(item)
+                return True
         else:
             print("data error")
+            return False
+
+    def queryAllFunRank(self):
+        print("query all fund`s rank")
+        hasNext = True
+        index = 0
+        while hasNext:
+            print("get next data")
+            hasNext = self.queryFundRank(str(index))
+            index = index + 1
 
     def saveToDb(self, data):
         print("save to db")

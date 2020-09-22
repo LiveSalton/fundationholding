@@ -5,5 +5,5 @@ from task.HoldingStocksTask import HoldingStocksTask
 
 if __name__ == '__main__':
     holdingStocksTask = HoldingStocksTask()
-    holdingStocksTask.queryOneFund("1")
+    holdingStocksTask.queryAllFunRank()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
