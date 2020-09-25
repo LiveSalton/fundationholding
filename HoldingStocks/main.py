@@ -1,9 +1,9 @@
 
 
 # Press the green button in the gutter to run the script.
-from task.HoldingStocksTask import HoldingStocksTask
+from task.FundRankTask import FundRankTask
 
 if __name__ == '__main__':
-    holdingStocksTask = HoldingStocksTask()
+    holdingStocksTask = FundRankTask()
     holdingStocksTask.queryAllFunRank()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
