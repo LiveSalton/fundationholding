@@ -7,6 +7,7 @@ import com.salton123.fundation.db.FundAppDatabase
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo
 import com.salton123.fundation.bean.SearchHistoryInfo
 import com.salton123.fundation.poller.chicang.FundStock
+import com.salton123.fundation.poller.chicang.FundStockExt
 import com.salton123.log.XLog
 import com.salton123.util.RxUtils
 import com.salton123.utils.RxUtilCompat
@@ -26,6 +27,7 @@ class FundationViewModel : ViewModel() {
     val mCodeStacksRet: MutableLiveData<MutableList<CodeStocksInnerJoinInfo>> = MutableLiveData()
     val mFundStocksRet: MutableLiveData<MutableList<FundStock>> = MutableLiveData()
     val mSearchHistoryRet: MutableLiveData<MutableList<SearchHistoryInfo>> = MutableLiveData()
+    val mFundStockExtRet: MutableLiveData<MutableList<FundStockExt>> = MutableLiveData()
 
     fun searchFundHoldingStocks(stocksKeyWord: String) {
         insertSearchHistory(stocksKeyWord)
@@ -60,6 +62,18 @@ class FundationViewModel : ViewModel() {
                     XLog.e(TAG, it.toString())
                 })
     }
+
+    fun getPopularFund() {
+        FundAppDatabase.getInstance().fundDao()
+                .popularFund
+                .compose(RxUtils.schedulersTransformer())
+                .subscribe({
+                    mFundStockExtRet.value = it
+                }, {
+                    XLog.e(TAG, it.toString())
+                })
+    }
+
 
     private fun insertSearchHistory(keyword: String) {
         FundAppDatabase.getInstance().fundDao()

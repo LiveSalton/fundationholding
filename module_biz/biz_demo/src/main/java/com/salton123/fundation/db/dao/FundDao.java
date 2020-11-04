@@ -3,6 +3,7 @@ package com.salton123.fundation.db.dao;
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo;
 import com.salton123.fundation.bean.SearchHistoryInfo;
 import com.salton123.fundation.poller.chicang.FundStock;
+import com.salton123.fundation.poller.chicang.FundStockExt;
 import com.salton123.fundation.poller.daima.DaiMaData;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
@@ -44,11 +44,13 @@ public interface FundDao {
     @Query("SELECT * FROM FundStock where CODE = :keyword")
     Observable<List<FundStock>> searchFundHoldings(String keyword);
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Maybe<Long> insertSearchHistory(SearchHistoryInfo bean);
 
     @Query("SELECT * FROM SearchHistoryInfo ORDER BY `timeStamp` DESC limit :limit")
     Observable<List<SearchHistoryInfo>> searchSearchHistoryInfos(int limit);
+
+    @Query("SELECT *,COUNT(CODE) cut FROM FundStock group by GPDM order by COUNT(FundStock.GPDM) desc")
+    Observable<List<FundStockExt>> getPopularFund();
 
 }

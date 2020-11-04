@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -21,6 +22,7 @@ import com.bin.david.form.utils.DensityUtils
 import com.salton123.fundation.bean.CodeStocksInnerJoinInfo
 import com.salton123.fundation.db.FundAppDatabase
 import com.salton123.fundation.mvvm.FundationViewModel
+import com.salton123.fundation.poller.chicang.FundStockExt
 import com.salton123.fundation.util.AssetsUtils
 import com.salton123.soulove.common.Constants
 import com.salton123.soulove.lib_demo.R
@@ -41,25 +43,62 @@ class FundationPage : BaseActivity() {
     lateinit var mFundViewModel: FundationViewModel
     override fun enableTitleBar(): Boolean = false
     override fun initViewAndData() {
-        mFundViewModel = ViewModelProviders.of(this).get(FundationViewModel::class.java)
-        mFundViewModel.mCodeStacksRet.observe(this, Observer {
-            fillDataToTable(it)
-        })
-        smartTable.setZoom(false, 2f, 0.4f)
         if (File(FundAppDatabase.DB_PATH).exists()) {
             FundAppDatabase.init(this)
         } else {
             copyDatabase()
             FundAppDatabase.init(this)
         }
+        mFundViewModel = ViewModelProviders.of(this).get(FundationViewModel::class.java)
+        mFundViewModel.apply {
+            mCodeStacksRet.observe(activity() as FragmentActivity, Observer {
+                fillDataToTable(it)
+            })
+            mSearchHistoryRet.observe(activity() as FragmentActivity, Observer { item ->
+                mTagGroup.setTags(item.map { it.keyword })
+            })
+            mFundStockExtRet.observe(activity() as FragmentActivity, Observer { item ->
+                updatePopularFund(item)
+            })
+            searchSearchHistories(10)
+            getPopularFund()
+        }
+        smartTable.setZoom(false, 2f, 0.4f)
         FontStyle.setDefaultTextSize(DensityUtils.sp2px(this, 15f)); //设置全局字体大小
-        mFundViewModel.searchSearchHistories(10)
-        mFundViewModel.mSearchHistoryRet.observe(this, Observer { item ->
-            mTagGroup.setTags(item.map { it.keyword })
-        })
         mTagGroup.setOnTagClickListener {
             etInput.setText(it)
         }
+    }
+
+    private fun updatePopularFund(codeStacks: MutableList<FundStockExt>) {
+        if (codeStacks.isEmpty()) {
+            return
+        }
+        if (smartTable.tableData != null) {
+            smartTable.tableData.clear()
+        }
+        smartTable.config.horizontalPadding = 20
+        smartTable.config.verticalPadding = 20
+        smartTable.config.sequenceHorizontalPadding = 50
+        smartTable.config.contentGridStyle = LineStyle()
+        smartTable.config.contentCellBackgroundFormat = object : BaseCellBackgroundFormat<CellInfo<*>>() {
+            override fun getBackGroundColor(cellInfo: CellInfo<*>): Int {
+                return if (cellInfo.row % 2 == 0) {
+                    ContextCompat.getColor(activity(), R.color.default_background)
+                } else TableConfig.INVALID_COLOR
+            }
+        }
+        val tableName = "热门持仓股票"
+        val titleName = arrayOf("股票名称", "股票代码", "基金数")
+        val data: Array<Array<String>> = arrayOf(
+                codeStacks.map { it.gpjc }.toTypedArray(),
+                codeStacks.map { it.gpdm }.toTypedArray(),
+                codeStacks.map { it.count.toString() }.toTypedArray()
+        )
+        val tableData = ArrayTableData.create(tableName, titleName, data, FastTextDrawFormat<String>())
+        smartTable.tableData = tableData
+        smartTable.matrixHelper.reset()
+        smartTable.visibility = View.VISIBLE
     }
 
     private fun copyDatabase() {
