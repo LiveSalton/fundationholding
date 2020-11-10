@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bin.david.form.core.TableConfig
 import com.bin.david.form.data.CellInfo
+import com.bin.david.form.data.column.Column
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat
 import com.bin.david.form.data.format.draw.FastTextDrawFormat
+import com.bin.david.form.data.format.draw.TextDrawFormat
 import com.bin.david.form.data.style.FontStyle
 import com.bin.david.form.data.style.LineStyle
 import com.bin.david.form.data.table.ArrayTableData
@@ -63,8 +65,10 @@ class FundationPage : BaseActivity() {
             searchSearchHistories(10)
             getPopularFund()
         }
-        smartTable.setZoom(false, 2f, 0.4f)
-        FontStyle.setDefaultTextSize(DensityUtils.sp2px(this, 15f)); //设置全局字体大小
+//        smartTable.setZoom(false, 2f, 0.4f)
+        smartTable.setZoom(true, 2f, 0.2f)
+        FontStyle.setDefaultTextSize(DensityUtils.sp2px(this, 15f)) //设置全局字体大小
+
         mTagGroup.setOnTagClickListener {
             etInput.setText(it)
         }
@@ -77,25 +81,28 @@ class FundationPage : BaseActivity() {
         if (smartTable.tableData != null) {
             smartTable.tableData.clear()
         }
-        smartTable.config.horizontalPadding = 20
-        smartTable.config.verticalPadding = 20
-        smartTable.config.sequenceHorizontalPadding = 50
+        smartTable.config.horizontalPadding = 1
+        smartTable.config.verticalPadding = 0
+        smartTable.config.minTableWidth = 10
         smartTable.config.contentGridStyle = LineStyle()
+
+        smartTable.config.isShowTableTitle = false
+        smartTable.config.setShowXSequence(false).isShowYSequence = false
         smartTable.config.contentCellBackgroundFormat = object : BaseCellBackgroundFormat<CellInfo<*>>() {
             override fun getBackGroundColor(cellInfo: CellInfo<*>): Int {
                 return if (cellInfo.row % 2 == 0) {
-                    ContextCompat.getColor(activity(), R.color.default_background)
+                    ContextCompat.getColor(activity(), R.color.color_80ff9800)
                 } else TableConfig.INVALID_COLOR
             }
         }
         val tableName = "热门持仓股票"
-        val titleName = arrayOf("股票名称", "股票代码", "基金数")
+        val titleName = arrayOf("股票名称", "基金数", "股票代码")
         val data: Array<Array<String>> = arrayOf(
                 codeStacks.map { it.gpjc }.toTypedArray(),
-                codeStacks.map { it.gpdm }.toTypedArray(),
-                codeStacks.map { it.count.toString() }.toTypedArray()
+                codeStacks.map { it.count.toString() }.toTypedArray(),
+                codeStacks.map { it.gpdm }.toTypedArray()
         )
-        val tableData = ArrayTableData.create(tableName, titleName, data, FastTextDrawFormat<String>())
+        val tableData = ArrayTableData.create(tableName, titleName, data, TextDrawFormat<String>())
         smartTable.tableData = tableData
         smartTable.matrixHelper.reset()
         smartTable.visibility = View.VISIBLE
@@ -116,14 +123,14 @@ class FundationPage : BaseActivity() {
         }
         val tableName = "${codeStacks[0].gpjc} - ${codeStacks[0].gpdm}"
         val titleName = arrayOf("基金名称", "基金代码")
-        smartTable.config.horizontalPadding = 20
-        smartTable.config.verticalPadding = 20
-        smartTable.config.sequenceHorizontalPadding = 50
+        smartTable.config.horizontalPadding = 1
+        smartTable.config.verticalPadding = 0
+        smartTable.config.minTableWidth = 10
         smartTable.config.contentGridStyle = LineStyle()
         smartTable.config.contentCellBackgroundFormat = object : BaseCellBackgroundFormat<CellInfo<*>>() {
             override fun getBackGroundColor(cellInfo: CellInfo<*>): Int {
                 return if (cellInfo.row % 2 == 0) {
-                    ContextCompat.getColor(activity(), R.color.default_background)
+                    ContextCompat.getColor(activity(), R.color.color_80ff9800)
                 } else TableConfig.INVALID_COLOR
             }
         }
