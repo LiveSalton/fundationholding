@@ -2,7 +2,7 @@ package com.salton123.fundation.poller.chicang
 
 import android.annotation.SuppressLint
 import com.google.gson.Gson
-import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.db.FundDBAssembleLine
 import com.salton123.fundation.poller.QueuePoller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
@@ -26,7 +26,7 @@ import java.util.concurrent.CountDownLatch
 class HoldingStocksPoller : QueuePoller<String>(100) {
     private var mIndex: Int = 0
     private var totalCount: Long = 0
-    private val TAG = "FCodePoller"
+    private val TAG = "HoldingStocksPoller"
     val okHttpClient = OkHttpClient()
     val url =
             "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNInverstPosition?product=EFund&appVersion=6.3" +
@@ -34,7 +34,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
                     "&version=6.3.1&userId=uid&DATE=2020-06-30&cToken=kd8kheua6cr6-jdaked8eck8cn6re8dc&MobileKey=6110b75b31a95a4f4b568396d6c9e85d%7C%7Ciemi_tluafed_me&appType=ttjj&OSVersion=10&plat=Android&uToken=utoken&passportid=1234567890"
 
     init {
-        FundAppDatabase.getInstance().fundDao().count.subscribe(
+        FundDBAssembleLine.getInstance().fundDao().count.subscribe(
                 { totalCount = it }, {
             XLog.i(TAG, "error:$it")
         }, {
@@ -64,7 +64,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
                 fundResp.fundData.fundStocks.forEach { it.code = data }
                 Observable.create { emitter: ObservableEmitter<Long?> ->
                     try {
-                        FundAppDatabase.getInstance().fundDao().insertAllFundStocks(fundResp.fundData.fundStocks)
+                        FundDBAssembleLine.getInstance().fundDao().insertAllFundStocks(fundResp.fundData.fundStocks)
                         emitter.onNext(0)
                     } catch (e: Exception) {
                         emitter.onError(e)
@@ -80,7 +80,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
 
     override fun requestData(size: Int): MutableList<String> {
         val data = mutableListOf<String>()
-        var queryData = FundAppDatabase.getInstance().fundDao()
+        var queryData = FundDBAssembleLine.getInstance().fundDao()
                 .getData(mIndex, size).blockingFirst().map {
                     it.fcode
                 }

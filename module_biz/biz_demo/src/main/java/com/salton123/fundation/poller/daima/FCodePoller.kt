@@ -1,7 +1,7 @@
 package com.salton123.fundation.poller.daima
 
 import com.google.gson.Gson
-import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.db.FundDBAssembleLine
 import com.salton123.fundation.poller.QueuePoller
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
@@ -62,7 +62,7 @@ class FCodePoller : QueuePoller<String>(50) {
                 if (resp.fundData.isNotEmpty()) {
                     Observable.create { emitter: ObservableEmitter<Long?> ->
                         try {
-                            FundAppDatabase.getInstance().fundDao().insert(resp.fundData)
+                            FundDBAssembleLine.getInstance().fundDao().insert(resp.fundData)
                             fCodeCount += resp.fundData.size
                             XLog.i(TAG, "fCodeCount:$fCodeCount")
                             emitter.onNext(0)

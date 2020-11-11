@@ -35,6 +35,9 @@ public interface FundDao {
     @Query("SELECT * FROM DaiMaData LIMIT :startIndex,:limit")
     Observable<List<DaiMaData>> getData(int startIndex, int limit);
 
+    @Query("SELECT * FROM DaiMaData")
+    Observable<List<DaiMaData>> getAllData();
+
     @Query("SELECT COUNT(*) from DaiMaData")
     Observable<Long> getCount();
 

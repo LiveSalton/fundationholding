@@ -22,7 +22,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {FundStock.class, DaiMaData.class, SearchHistoryInfo.class}, version = 2)
+@Database(entities = {FundStock.class, DaiMaData.class, SearchHistoryInfo.class}, version = 3)
 public abstract class FundAppDatabase extends RoomDatabase {
     public static final String DB_PATH = BaseApplication.sInstance.getDatabasePath("fund.db").getAbsolutePath();
 
@@ -45,7 +45,7 @@ public abstract class FundAppDatabase extends RoomDatabase {
                 .build();
     }
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    static final Migration MIGRATION_1_2 = new Migration(2, 3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `SearchHistoryInfo` (`KEYWORD` TEXT NOT NULL, `timeStamp` INTEGER NOT NULL, PRIMARY KEY(`KEYWORD`))");

@@ -7,5 +7,11 @@
         <activity
             android:name="com.salton123.fundation.HoldingPage"
             android:configChanges="screenLayout|orientation|screenSize" />
+        <activity
+            android:name="com.salton123.fundation.FundationDataCollectPage"
+            android:configChanges="screenLayout|orientation|screenSize" />
+        <activity
+            android:name="com.salton123.fundation.FundInfoUpgradePage"
+            android:configChanges="screenLayout|orientation|screenSize" />
     </application>
 </manifest>

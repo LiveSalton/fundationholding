@@ -57,7 +57,7 @@ class XApp : BaseApplication() {
         if (BaseUtil.isMainProcess(this)) {
             ThirdHelper.getInstance(this)
                     .initQualityAssistant()
-                    .initFragmentation(BuildConfig.APP_DEVELOP)
+                    .initFragmentation(false)
                     .initRouter()
                     .initUtils()
                     .initBugly()

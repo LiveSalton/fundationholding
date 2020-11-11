@@ -1,16 +1,11 @@
 package com.salton123.fundation
 
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.salton123.fundation.db.FundAppDatabase
+import com.salton123.fundation.db.FundDBAssembleLine
 import com.salton123.fundation.poller.chicang.HoldingStocksPoller
 import com.salton123.fundation.poller.daima.FCodePoller
-import com.salton123.log.XLog
-import com.salton123.soulove.common.Constants
-import com.salton123.soulove.common.net.RxAdapter
 import com.salton123.soulove.lib_demo.R
 import com.salton123.ui.base.BaseActivity
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
+import com.salton123.utils.RxCompat
 import kotlinx.android.synthetic.main.page_data_collect_fundation.*
 
 /**
@@ -19,35 +14,25 @@ import kotlinx.android.synthetic.main.page_data_collect_fundation.*
  * ModifyTime: 18:05
  * Description:
  */
-@Route(path = Constants.Router.Fundation.DATA_COLLECT)
+
 class FundationDataCollectPage : BaseActivity() {
     override fun getLayout(): Int = R.layout.page_data_collect_fundation
-    private var mChiCangPoller: HoldingStocksPoller? = HoldingStocksPoller()
-    private var mDaiMaPoller: FCodePoller? = FCodePoller()
+    private var mHoldingStocksPoller: HoldingStocksPoller? = HoldingStocksPoller()
+    private var mFCodePoller: FCodePoller? = FCodePoller()
     override fun initViewAndData() {
-        Observable.create { emitter: ObservableEmitter<Long?> ->
-            try {
-                FundAppDatabase.getInstance().fundDao().deleteAllFundStocks()
-                XLog.i("FundationPage", "drop FundStock")
-                emitter.onNext(0)
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-            emitter.onComplete()
-        }.compose(RxAdapter.schedulersTransformer()).subscribe(
-                {}, {}, {}
-        )
+
+        RxCompat.runOnFlowable { FundDBAssembleLine.getInstance().fundDao().deleteAllFundStocks() }
         btnStart.setOnClickListener {
-            mChiCangPoller?.start()
+            mHoldingStocksPoller?.start()
         }
         btnStartDaima.setOnClickListener {
-            mDaiMaPoller?.start()
+            mFCodePoller?.start()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mChiCangPoller?.stop()
-        mDaiMaPoller?.stop()
+        mHoldingStocksPoller?.stop()
+        mFCodePoller?.stop()
     }
 }
