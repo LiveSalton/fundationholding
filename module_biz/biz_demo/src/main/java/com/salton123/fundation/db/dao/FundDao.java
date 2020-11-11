@@ -29,6 +29,9 @@ public interface FundDao {
     @Query("DELETE FROM `FundStock`")
     void deleteAllFundStocks();
 
+    @Query("DELETE FROM `DaiMaData`")
+    void deleteAllDaiMaData();
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<DaiMaData> bean);
 

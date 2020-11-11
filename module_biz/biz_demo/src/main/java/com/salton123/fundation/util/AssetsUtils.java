@@ -13,23 +13,19 @@ import java.io.InputStream;
  * Description:
  */
 public class AssetsUtils {
-    public static void copyAssetFile(Context context, String dirPath, String name) {
-        String filePath = dirPath + "/" + name;
-
+    public static void copyAssetFile(Context context, String filePath, String assetName) {
         try {
-            File dir = new File(dirPath);
+            File dir = new File(filePath).getParentFile();
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-
             File file = new File(filePath);
             if (!file.exists()) {
-                InputStream is = context.getAssets().open(name);
+                InputStream is = context.getAssets().open(assetName);
                 FileOutputStream fs = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
-
                 int count;
-                while((count = is.read(buffer)) > 0) {
+                while ((count = is.read(buffer)) > 0) {
                     fs.write(buffer, 0, count);
                 }
 

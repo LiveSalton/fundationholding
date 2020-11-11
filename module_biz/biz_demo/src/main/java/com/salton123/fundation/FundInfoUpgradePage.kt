@@ -5,11 +5,16 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.salton123.fundation.db.FundDBAssembleLine
 import com.salton123.fundation.upgrade.FundInfoUpgradeViewModel
 import com.salton123.log.XLog
 import com.salton123.soulove.common.Constants
 import com.salton123.soulove.lib_demo.R
 import com.salton123.ui.base.BaseActivity
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.page_fund_info_upgrade.*
 
 /**
@@ -54,17 +59,31 @@ class FundInfoUpgradePage : BaseActivity() {
 
     override fun initListener() {
         super.initListener()
-        setListener(tvStart,tvUpdateHoldings)
+        setListener(tvStart, tvUpdateHoldings)
     }
 
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v) {
             tvStart -> {
-                mViewModel.updateFundCode()
+                Flowable.create<Void>({
+                    FundDBAssembleLine.getInstance().fundDao().deleteAllFundStocks()
+                }, BackpressureStrategy.MISSING)
+                        .observeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            mViewModel.updateFundCode()
+                        }
             }
             tvUpdateHoldings -> {
-                mViewModel.updateHoldingStocks()
+                Flowable.create<Void>({
+                    FundDBAssembleLine.getInstance().fundDao().deleteAllFundStocks()
+                }, BackpressureStrategy.MISSING)
+                        .observeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            mViewModel.updateHoldingStocks()
+                        }
             }
         }
     }
