@@ -20,4 +20,11 @@
         android:gravity="center"
         android:text="更新持仓信息" />
 
+    <Button
+        android:id="@+id/tvMerge"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="合并到旧数据" />
 </LinearLayout>

@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.salton123.fundation.db.FundDBAssembleLine
 import com.salton123.fundation.poller.chicang.FundResp
 import com.salton123.fundation.poller.chicang.FundStock
+import com.salton123.fundation.poller.chicang.HoldingStocksPoller
 import com.salton123.fundation.poller.daima.DaiMaResp
 import com.salton123.log.XLog
 import com.salton123.soulove.common.net.RxAdapter
@@ -96,21 +97,26 @@ class FundInfoUpgradeViewModel : ViewModel(), IUpgradeDelegate {
     }
 
     fun updateHoldingStocks() {
-        FundDBAssembleLine.getInstance().fundDao().allData.subscribe { data ->
-            mUpdateHoldingStocksCount = 0
-            mTotalHoldingStocksCount = data.size
-            data.forEach {
-                val msg: Message = Message.obtain()
-                msg.what = UpgradeHanlder.MSG_WHAT_REQUEST_HOLDING_STOCK
-                msg.obj = it.fcode
-                mHandler.sendMessage(msg)
-            }
-        }
+//        FundDBAssembleLine.getInstance().fundDao().allData.subscribe { data ->
+//            mUpdateHoldingStocksCount = 0
+//            mTotalHoldingStocksCount = data.size
+//            data.forEach {
+//                val msg: Message = Message.obtain()
+//                msg.what = UpgradeHanlder.MSG_WHAT_REQUEST_HOLDING_STOCK
+//                msg.obj = it.fcode
+//                mHandler.sendMessage(msg)
+//            }
+//        }
+        HoldingStocksPoller().start()
     }
 
     val mHoldingStocksRet: MutableLiveData<Pair<Int, Int>> = MutableLiveData()
+
+    @Volatile
     var mUpdateHoldingStocksCount = 0
+    @Volatile
     var mTotalHoldingStocksCount = 0
+
     var allFundStocks: MutableList<FundStock> = mutableListOf()
     override fun reqHoldingStocks(fCode: String, latch: CountDownLatch) {
         val requestUrl = holdingStockUrl.replace("009314", fCode)
@@ -118,6 +124,7 @@ class FundInfoUpgradeViewModel : ViewModel(), IUpgradeDelegate {
                 .url(requestUrl)
                 .get() //默认就是GET请求，可以不写
                 .build()
+
         val call: Call = okHttpClient.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -127,27 +134,29 @@ class FundInfoUpgradeViewModel : ViewModel(), IUpgradeDelegate {
 
             override fun onResponse(call: Call, response: Response) {
                 latch.countDown()
+                ++mUpdateHoldingStocksCount
                 val respData = response.body()?.string()
                 val fundResp = Gson().fromJson(respData, FundResp::class.java)
                 fundResp.fundData.fundStocks.forEach { it.code = fCode }
                 allFundStocks.addAll(fundResp.fundData.fundStocks)
-                if (allFundStocks.size >= 1000) {
+                XLog.i(TAG, "$fCode,$mUpdateHoldingStocksCount,$requestUrl")
+                if (mTotalHoldingStocksCount == mUpdateHoldingStocksCount) {
                     Observable.create { emitter: ObservableEmitter<Long?> ->
                         try {
-                            var tFundStocks: MutableList<FundStock> = mutableListOf()
-                            tFundStocks.addAll(allFundStocks)
-                            FundDBAssembleLine.getInstance().fundDao().insertAllFundStocks(tFundStocks.filterNotNull())
-                            allFundStocks.clear()
+//                            var tFundStocks: MutableList<FundStock> = mutableListOf()
+//                            tFundStocks.addAll(allFundStocks)
+                            FundDBAssembleLine.getInstance().fundDao().insertAllFundStocks(allFundStocks.filterNotNull())
                             emitter.onNext(0)
                         } catch (e: Exception) {
                             emitter.onError(e)
                         }
+                        XLog.i(TAG, "save data to db")
                         emitter.onComplete()
                     }.compose(RxAdapter.schedulersTransformer()).subscribe {
-                        mHoldingStocksRet.postValue(Pair(mTotalHoldingStocksCount, ++mUpdateHoldingStocksCount))
+                        mHoldingStocksRet.postValue(Pair(mTotalHoldingStocksCount, mUpdateHoldingStocksCount))
                     }
                 } else {
-                    mHoldingStocksRet.postValue(Pair(mTotalHoldingStocksCount, ++mUpdateHoldingStocksCount))
+                    mHoldingStocksRet.postValue(Pair(mTotalHoldingStocksCount, mUpdateHoldingStocksCount))
                 }
             }
         })
@@ -168,11 +177,12 @@ class FundInfoUpgradeViewModel : ViewModel(), IUpgradeDelegate {
                 MSG_WHAT_REQUEST_FUND_CODE -> {
                     mQueueLatch = CountDownLatch(1)
                     mPageRef.get()?.requestFundCode(msg.obj as Int, mQueueLatch!!)
+//                    mQueueLatch?.await()
                 }
                 MSG_WHAT_REQUEST_HOLDING_STOCK -> {
                     mQueueLatch = CountDownLatch(1)
                     mPageRef.get()?.reqHoldingStocks(msg.obj as String, mQueueLatch!!)
-//                    mQueueLatch.await()
+//                    mQueueLatch?.await()
                 }
             }
         }

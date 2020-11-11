@@ -35,11 +35,15 @@ public interface FundDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<DaiMaData> bean);
 
+
     @Query("SELECT * FROM DaiMaData LIMIT :startIndex,:limit")
     Observable<List<DaiMaData>> getData(int startIndex, int limit);
 
     @Query("SELECT * FROM DaiMaData")
     Observable<List<DaiMaData>> getAllData();
+
+    @Query("SELECT * FROM FundStock")
+    Observable<List<FundStock>> getAllFundStocks();
 
     @Query("SELECT COUNT(*) from DaiMaData")
     Observable<Long> getCount();

@@ -44,7 +44,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
 
     private var sendCount = 0
     override fun sendRequest(data: String, latch: CountDownLatch) {
-        sendCount++
+
         val requestUrl = url.replace("009314", data)
 //        XLog.i(TAG, requestUrl)
         val request: Request = Request.Builder()
@@ -55,6 +55,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 latch.countDown()
+                sendCount++
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -64,7 +65,9 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
                 fundResp.fundData.fundStocks.forEach { it.code = data }
                 Observable.create { emitter: ObservableEmitter<Long?> ->
                     try {
+                        sendCount++
                         FundDBAssembleLine.getInstance().fundDao().insertAllFundStocks(fundResp.fundData.fundStocks)
+                        XLog.i(TAG, "sendCount:$sendCount,totalCount:$totalCount,mIndex:$mIndex")
                         emitter.onNext(0)
                     } catch (e: Exception) {
                         emitter.onError(e)
@@ -73,7 +76,7 @@ class HoldingStocksPoller : QueuePoller<String>(100) {
                 }.compose(RxAdapter.schedulersTransformer()).subscribe()
             }
         })
-        XLog.i(TAG, "sendCount:$sendCount,totalCount:$totalCount,mIndex:$mIndex")
+
     }
 
     override fun canRequest(): Boolean = mIndex <= totalCount + maxQueueSize + 1
