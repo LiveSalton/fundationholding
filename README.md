@@ -1,4 +1,6 @@
 ﻿增加2021.06.30二季度持仓信息：
+请访问[python-fundation-matrix](https://github.com/LiveSalton/python-fundation-matrix.git)
+
 直接把数据上报的mysql，然后通过granfana执行报表汇总
 ![持仓](https://github.com/LiveSalton/python-fundation-matrix/blob/master/resource/capture.png)
 
